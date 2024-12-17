@@ -6,14 +6,13 @@ import { CreatePresentation } from "./domain/use-cases/presentation/create-prese
 import { PGPresentationDataSource } from "./data/data-sources/postgresql/pg-presentation-data-source";
 import { Pool } from "pg";
 
-
 async function getPGDS() {
-    
     const db = new Pool({
-        user:'postgres',
-        host:'localhost',
-        database:'PRESENTATİONSDB',
-        port:5432
+        user:process.env.DB_USERNAME,
+        host:process.env.DB_HOST,
+        database:process.env.DB_NAME,
+        password:process.env.DB_PASSWORD,
+        port:Number(process.env.DB_PORT)
     })
     return new PGPresentationDataSource(db);
 }
@@ -25,7 +24,13 @@ async function getPGDS() {
         new GetAllPresentation(new PresentationRepositoryImpl(dataSource)),
         new CreatePresentation(new PresentationRepositoryImpl(dataSource)),
     )
+     
+     server.get('/', (req, res) => {
+        res.send("Hello world");
+    });
 
-    server.use('/presentation',presentationMiddleware)
+    
+    server.use('/presentation', presentationMiddleware);
+    
     server.listen(4000,() => console.log("Running on http://localhost:4000"))
 })()

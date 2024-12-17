@@ -2,7 +2,7 @@ import { PresentationRequestModel,Presentation } from "../../../domain/entities/
 import { PresentationDataSource } from "../../interfaces/data-sources/presentation-data-source";
 import { SQLDatabaseWrapper } from "../../interfaces/data-sources/sql-database-wrapper";
 
-const DB_TABLE = "tb_presentation";
+const DB_TABLE = "Presentation";
 
 export class PGPresentationDataSource implements PresentationDataSource {
     private db:SQLDatabaseWrapper;
@@ -12,7 +12,8 @@ export class PGPresentationDataSource implements PresentationDataSource {
     }
 
     async create(presentation: PresentationRequestModel) {
-        await this.db.query(`insert into ${DB_TABLE} (name) values ($1)`,[presentation.name])
+        console.log(DB_TABLE)
+        await this.db.query(`insert into "${DB_TABLE}" (name) values ($1)`,[presentation.name])
     }
     async getAll(): Promise<Presentation[]> {
         const dbResponse = await this.db.query(`select * from ${DB_TABLE}`);

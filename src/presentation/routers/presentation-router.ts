@@ -17,10 +17,13 @@ export default function PresentationRouter(getAllPresentationUseCase:GetAllPrese
 
     router.post('/',async (req:Request,res:Response) => {
         try {
+            console.log("geldii")
+            console.log("req.body:",req.body);
             await createPresentationUseCase.execute(req.body);
             res.statusCode = 201;
             res.json({message:"Created"});
-        } catch (error) {
+        } catch (error:any) {
+            console.log("error:",error.message)
             res.status(500).send({message:"Error saving data"})
         }
     })
