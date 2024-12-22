@@ -1,4 +1,4 @@
-import { PresentationRequestModel,Presentation } from "../../../domain/entities/presentation";
+import { PresentationRequestModel,Presentation,uploadResults,CreatePresentationObject } from "../../../domain/entities/presentation";
 import { PresentationDataSource } from "../../interfaces/data-sources/presentation-data-source";
 import { SQLDatabaseWrapper } from "../../interfaces/data-sources/sql-database-wrapper";
 
@@ -11,9 +11,10 @@ export class PGPresentationDataSource implements PresentationDataSource {
         this.db = db;
     }
 
-    async create(presentation: PresentationRequestModel) {
+    async create(presentation: CreatePresentationObject) {
         console.log(DB_TABLE)
-        await this.db.query(`insert into "${DB_TABLE}" (name) values ($1)`,[presentation.name])
+        console.log("presentation data source:",presentation);
+        await this.db.query(`insert into "${DB_TABLE}" (name,thumbnail_path) values ($1,$2)`,[presentation.name,presentation.path])
     }
     async getAll(): Promise<Presentation[]> {
         const dbResponse = await this.db.query(`select * from ${DB_TABLE}`);

@@ -1,4 +1,4 @@
-import { PresentationRequestModel, Presentation } from "../entities/presentation";
+import { PresentationRequestModel, Presentation,CreatePresentationObject } from "../entities/presentation";
 import { PresentationRepository } from "../interfaces/repositories/presentation-repository";
 import { PresentationDataSource } from "../../data/interfaces/data-sources/presentation-data-source";
 
@@ -8,7 +8,7 @@ export class PresentationRepositoryImpl implements PresentationRepository {
         this.presentationDataSource = presentationDataSource
     }
 
-    async createPresentation(presentation: PresentationRequestModel) {
+    async createPresentation(presentation: CreatePresentationObject) {
         await this.presentationDataSource.create(presentation);
     }
     async deletePresentation(id: string) {

@@ -1,7 +1,7 @@
-import {Presentation,PresentationRequestModel} from "../../entities/presentation";
+import {Presentation,PresentationRequestModel,CreatePresentationObject} from "../../entities/presentation";
 
 export interface PresentationRepository {
-    createPresentation(presentation:PresentationRequestModel):void;
+    createPresentation(presentation:CreatePresentationObject):void;
     deletePresentation(id:String):void;
     updatePresentation(id:String,data:PresentationRequestModel):void;
     getPresentations():Promise<Presentation[]>;

@@ -2,8 +2,9 @@ import express from "express";
 import { Request,Response } from "express";
 import { CreatePresentationUseCase } from "../../domain/interfaces/use-cases/create-presentation-use-case";
 import { GetAllPresentationsUseCase } from "../../domain/interfaces/use-cases/get-all-presentations-use-case";
+import { MulterInterfaces } from "../../domain/interfaces/services/multer-interfaces";
 
-export default function PresentationRouter(getAllPresentationUseCase:GetAllPresentationsUseCase,createPresentationUseCase:CreatePresentationUseCase){
+export default function PresentationRouter(getAllPresentationUseCase:GetAllPresentationsUseCase,createPresentationUseCase:CreatePresentationUseCase,multerInterfaces:MulterInterfaces){
     const router = express.Router();
 
     router.get('/',async (req:Request,res:Response) => {
@@ -18,8 +19,10 @@ export default function PresentationRouter(getAllPresentationUseCase:GetAllPrese
     router.post('/',async (req:Request,res:Response) => {
         try {
             console.log("geldii")
+            const uploadResults = await multerInterfaces.handleArrayUploadFile(req,res,"thumb");
+            console.log("uploadResults:",uploadResults);
             console.log("req.body:",req.body);
-            await createPresentationUseCase.execute(req.body);
+            await createPresentationUseCase.execute(uploadResults);
             res.statusCode = 201;
             res.json({message:"Created"});
         } catch (error:any) {

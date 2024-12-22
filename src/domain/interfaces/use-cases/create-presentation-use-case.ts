@@ -1,5 +1,5 @@
-import { PresentationRequestModel } from "../../entities/presentation";
+import { uploadResults } from "../../entities/presentation";
 
 export interface CreatePresentationUseCase {
-    execute(presentation:PresentationRequestModel):void;
+    execute(presentation:uploadResults):void;
 }

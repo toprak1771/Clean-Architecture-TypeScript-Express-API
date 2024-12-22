@@ -5,6 +5,8 @@ import { PresentationRepositoryImpl } from "./domain/repositories/presentation-r
 import { CreatePresentation } from "./domain/use-cases/presentation/create-presentation";
 import { PGPresentationDataSource } from "./data/data-sources/postgresql/pg-presentation-data-source";
 import { Pool } from "pg";
+import { Multer } from "./domain/services/multer";
+
 
 async function getPGDS() {
     const db = new Pool({
@@ -23,6 +25,7 @@ async function getPGDS() {
     const presentationMiddleware = PresentationRouter(
         new GetAllPresentation(new PresentationRepositoryImpl(dataSource)),
         new CreatePresentation(new PresentationRepositoryImpl(dataSource)),
+        new Multer
     )
      
      server.get('/', (req, res) => {
