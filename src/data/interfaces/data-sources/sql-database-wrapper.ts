@@ -1,3 +1,3 @@
-export interface SQLDatabaseWrapper {
-    query(queryString: String, queryConfig?: any[]): Promise<{ rows: any[] }>
+export interface SQLDatabaseWrapper<T> {
+    query(queryString: String, queryConfig?: any[]): Promise<{ rows: T[] }>
 }

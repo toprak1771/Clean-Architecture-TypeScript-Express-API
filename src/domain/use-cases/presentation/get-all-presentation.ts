@@ -8,7 +8,7 @@ export class GetAllPresentation implements GetAllPresentationsUseCase {
         this.presentationRepository = presentationRepository;
     };
 
-    async execute(): Promise<Presentation[]> {
+    async execute(): Promise<Presentation[] | void> {
         const result = await this.presentationRepository.getPresentations();
         return result;
     }

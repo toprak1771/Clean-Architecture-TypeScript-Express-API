@@ -17,7 +17,7 @@ export class PresentationRepositoryImpl implements PresentationRepository {
     async updatePresentation(id: string, data: Presentation) {
         await this.presentationDataSource.updateOne(id,data);
     }
-    async getPresentations(): Promise<Presentation[]> {
+    async getPresentations(): Promise<Presentation[] | void> {
         const results = await this.presentationDataSource.getAll();
         return results;
     }

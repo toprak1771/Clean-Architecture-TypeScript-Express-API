@@ -4,6 +4,6 @@ export interface PresentationRepository {
     createPresentation(presentation:CreatePresentationObject):void;
     deletePresentation(id:String):void;
     updatePresentation(id:String,data:PresentationRequestModel):void;
-    getPresentations():Promise<Presentation[]>;
+    getPresentations():Promise<Presentation[] | void>;
     getPresentation(id:String):Promise<Presentation | null>;
 }
