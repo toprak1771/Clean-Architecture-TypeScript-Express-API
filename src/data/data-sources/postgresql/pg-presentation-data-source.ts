@@ -7,9 +7,9 @@ import {
 import { PresentationDataSource } from "../../interfaces/data-sources/presentation-data-source";
 import { SQLDatabaseWrapper } from "../../interfaces/data-sources/sql-database-wrapper";
 
-const DB_TABLE = "Presentation";
+const DB_TABLE = process.env.POSTGRE_TEST_TABLE;
 
-export class PGPresentationDataSource implements PresentationDataSource {
+export class PGPresentationDataSource implements PresentationDataSource<Presentation> {
   private db: SQLDatabaseWrapper<Presentation>;
 
   constructor(db: SQLDatabaseWrapper<Presentation>) {

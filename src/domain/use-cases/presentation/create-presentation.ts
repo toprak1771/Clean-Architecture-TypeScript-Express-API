@@ -9,12 +9,16 @@ export class CreatePresentation implements CreatePresentationUseCase {
     };
 
     async execute(presentation: uploadResults) {
-        console.log("presentationUseCase:",presentation);
-        const createPresentationObj = {
-            path:presentation.files[0].path,
-            name:presentation.body.name
+        try {
+            const createPresentationObj = {
+                path:presentation.files[0].path,
+                name:presentation.body.name
+            }
+            await this.presentationRepository.createPresentation(createPresentationObj);
+        } catch (error) {
+            console.log("error:",error);
         }
-        await this.presentationRepository.createPresentation(createPresentationObj);
+       
     }
     
 }
